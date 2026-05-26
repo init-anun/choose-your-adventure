@@ -1,18 +1,56 @@
-# React + Vite
+# Interactive Story Generator - Frontend Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the React + Vite frontend application for the Interactive Story Generator. It serves as the user interface where players can prompt themes, watch the story generation progress, and play the generated "Choose Your Own Adventure" game.
 
-Currently, two official plugins are available:
+For a comprehensive overview of the full project architecture (including the FastAPI backend and SQLite database), please refer to the [Root README](../README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🛠️ Getting Started
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Prerequisites
+*   [Node.js](https://nodejs.org/) (v18 or higher)
 
-Note: This will impact Vite dev & build performances.
+### Installation
 
-## Expanding the ESLint configuration
+1.  Navigate to this folder (if not already there):
+    ```bash
+    cd frontend
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  Install the required dependencies:
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+*   **Start the development server**:
+    ```bash
+    npm run dev
+    ```
+    This launches the local development server at `http://localhost:5173`. Make sure the FastAPI backend is running on `http://localhost:8000` so that API calls succeed.
+
+*   **Build for production**:
+    ```bash
+    npm run build
+    ```
+    This compiles and bundles the asset files into the `dist/` directory, optimized for web production.
+
+*   **Preview the production build locally**:
+    ```bash
+    npm run preview
+    ```
+
+---
+
+## 📂 Key Components & Structure
+
+*   [App.jsx](./src/App.jsx): Main router and page layout container.
+*   [components/StoryGenerator.jsx](./src/components/StoryGenerator.jsx): View for entering a theme and requesting a new story. Polls the backend for job completion.
+*   [components/StoryLoader.jsx](./src/components/StoryLoader.jsx): Fetches and loads the completed adventure graph by ID.
+*   [components/StoryGame.jsx](./src/components/StoryGame.jsx): The core gameplay interface that navigates the branching story options.
+*   [components/ThemeInput.jsx](./src/components/ThemeInput.jsx): Input form for typing a new adventure theme.
+*   [components/LoadingStatus.jsx](./src/components/LoadingStatus.jsx): Displays loading progress status during story generation.
+*   [vite.config.js](./vite.config.js): Handles proxy rules mapping `/api` calls directly to the local FastAPI port (`8000`).
+
