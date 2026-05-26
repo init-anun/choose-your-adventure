@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 
 export default function ThemeInput({onSubmit}) {
-    const [theme, setTheme] = useState('');
-    const [error, setErorr] = useState('');
+    const [theme, setTheme] = useState(String);
+    const [error, setError] = useState('');
 
-    const handelSubmit = (e) => {
+    const handleSubmit = (e) => {
+
         e.preventDefault();
+        setError('');
+
 
         if(!theme.trim()){
-            setErorr('Plese enter a theme name');
+            setError('Plese enter a theme name');
             return;
         }
-
         onSubmit(theme);
     }
 
@@ -20,12 +22,12 @@ export default function ThemeInput({onSubmit}) {
         <h2> Generate Your Adventure Story </h2>
         <p>Enter a theme for your adventure story</p>
 
-        <form onSubmit={handelSubmit}>
+        <form onSubmit={handleSubmit}>
             <div className="input-group">
                 <input
                     type="text"
                     value={theme}
-                    onChange={(e => setTheme(e.targer.value))}
+                    onChange={(e => setTheme(e.target.value))}
                     placeholder="Enter a theme (e.g. Pirates, Jungle Safari, Space Adventure...)"
                     className={error ? 'error' : ''}
                 />

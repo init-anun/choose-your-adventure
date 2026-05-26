@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import StoryLoader from './components/StoryLoader'
-
+import StoryGenerator from './components/StoryGenerator'
 
 function App() {
 
@@ -19,6 +15,7 @@ function App() {
 
         <main>
           <Routes>
+            <Route path={"/"} element={<StoryGenerator/>} />
             <Route path={"/story/:id"} element={<StoryLoader/>} />
           </Routes>
         </main>

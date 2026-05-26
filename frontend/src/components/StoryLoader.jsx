@@ -1,9 +1,5 @@
-import React, {
-    useState,
-    useEffect,
-    useParams,
-    useNavigate
-} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import LoadingStatus from './LoadingStatus';
@@ -28,7 +24,7 @@ export default function StoryLoader() {
         setError(null);
 
         try {
-            const response = await axios.get(`$(API_BASE_URL)/stories/${storyId}/complete`);
+            const response = await axios.get(`$(API_BASE_URL)/story/${storyId}/complete`);
             setStory(response.data);
             setLoading(false);
         } catch (error){
@@ -46,9 +42,10 @@ export default function StoryLoader() {
         navigate('/');
     }
 
+    
     if(loading){
         return (
-            <LoadingStatus theme={theme} />
+            <LoadingStatus theme={"story"} />
         );
     }
 

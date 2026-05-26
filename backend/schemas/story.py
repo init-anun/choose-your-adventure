@@ -7,13 +7,13 @@ class StoryOptionsSchema(BaseModel):
     text: str 
     node_id: Optional[str] = None
 
-class StoryNodeBase(BaseModel):
+class StoryNode(BaseModel):
     """Base schema for a story node."""
     content: str
     is_ending: bool = False
-    is_wining_ending: bool = False
+    is_winning_ending: bool = False
 
-class CompleteStoryNodeResponse(StoryNodeBase):
+class CompleteStoryNodeResponse(StoryNode):
     """Schema for a complete story node response."""
     id: str
     options: List[StoryOptionsSchema] = []

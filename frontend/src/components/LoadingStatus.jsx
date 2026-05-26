@@ -3,7 +3,7 @@ import React from 'react'
 export default function LoadingStatus(theme) {
   return (
     <div className="loading-container">
-        <h2>Generate Your {theme} Story </h2>
+        <h2>Generate Your {theme.theme} Story </h2>
 
         <div className="loading-animation">
             <div className="spinner"></div>

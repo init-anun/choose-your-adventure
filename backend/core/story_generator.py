@@ -2,7 +2,9 @@ from core.models import StoryLLMResponse
 from sqlalchemy.orm import Session
 from core.config import settings
 
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
+# from langchain_google_genai import ChatGoogleGenerativeAI as ChatGemini
+from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 
@@ -17,9 +19,18 @@ load_dotenv()
 class StoryGenerator:
     @classmethod
     
+    # def _get_llm(cls):
+    #     return ChatGemini(
+    #         model="gemini-2.5-flash",
+    #         google_api_key=settings.GEMINI_API_KEY
+    #     )
+
+
     def _get_llm(cls):
-        return ChatOpenAI(
-            model="gpt-5-mini",
+        return ChatGroq(
+            model="llama-3.1-8b-instant",
+            groq_api_key=settings.GROQ_API_KEY,
+            max_tokens=4000
         )
     
     @classmethod
@@ -43,6 +54,8 @@ class StoryGenerator:
         response_text = raw_response
         if hasattr(raw_response, "content"):
             response_text = raw_response.content
+            
+        
 
         story_structure = story_parser.parse(response_text) 
         story_db = Story(
@@ -57,7 +70,6 @@ class StoryGenerator:
             root_node_data = StoryNodeLLM.model_validate(root_node_data)
 
         cls._process_story_node(db, story_db.id, root_node_data, is_root=True)
-
         db.commit()
         return story_db
     
@@ -70,12 +82,13 @@ class StoryGenerator:
         node_data: StoryNodeLLM,
         is_root: bool = False
     )-> StoryNode:
+        
         node = StoryNode(
         story_id= story_id,
         content= node_data.content if hasattr(node_data, "content") else node_data["content"],
         is_root= is_root,
         is_ending= node_data.isEnding if hasattr(node_data, "isEnding") else node_data["isEnding"],
-        is_winning_ending= node_data.isWiningEnding if hasattr(node_data, "isWiningEnding") else node_data["isWiningEnding"],
+        is_winning= node_data.isWinningEnding if hasattr(node_data, "isWinningEnding") else node_data["isWinningEnding"],
         options= []
         )
 
