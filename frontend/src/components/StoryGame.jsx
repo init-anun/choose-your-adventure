@@ -1,9 +1,7 @@
-import React, {
-    useState,
-    useEffect
-} from 'react';
+// components/StoryGame.jsx
+import React, { useState, useEffect } from 'react';
 
-function StoryGame(story, onNewStory) {
+function StoryGame({story, onNewStory}) {
     const [currentNodeID, setCurrentNodeID] = useState(null);
     const [currentNode, setCurrentNode] = useState(null);
     const [options, setOptions] = useState([]);
@@ -20,7 +18,7 @@ function StoryGame(story, onNewStory) {
 
     useEffect(() => {
         if(currentNodeID && story && story.all_nodes){
-            const node = story.all_node[currentNodeID];
+            const node = story.all_nodes[currentNodeID];
 
             setCurrentNode(node);
             setIsEnding(node.is_ending);
@@ -48,7 +46,7 @@ function StoryGame(story, onNewStory) {
     return (
         <div className="story-game">
             <header className="story-header">
-                <h2>{story.title}</h2>
+                <h2>{story?.title}</h2>
             </header>
 
             <div className="story-content">
@@ -70,9 +68,9 @@ function StoryGame(story, onNewStory) {
                                     return (
                                         <button 
                                             key={index}
-                                            onClick={() => chooseOption(option.id)}
-                                            className="ption-btn" >
-                                                {option.content}
+                                            onClick={() => chooseOption(option.node_id)}
+                                            className="option-btn" >
+                                                {option.text}
                                         </button>
                                     )
                                 })}

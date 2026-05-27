@@ -5,7 +5,6 @@ import axios from 'axios';
 import LoadingStatus from './LoadingStatus';
 import StoryGame from './StoryGame';
 
-const API_BASE_URL = '/api';
 
 export default function StoryLoader() {
 
@@ -24,9 +23,18 @@ export default function StoryLoader() {
         setError(null);
 
         try {
-            const response = await axios.get(`$(API_BASE_URL)/story/${storyId}/complete`);
+            const path = `/api/story/${storyId}/complete`;
+
+
+            const response = await axios.get(path);
+
+            if(!response.data){
+                throw new Error('Story not found');
+            }
+
+
             setStory(response.data);
-            setLoading(false);
+            // setLoading(false);
         } catch (error){
             if(error.response?.status === 404){
                 setError('Story not found');
