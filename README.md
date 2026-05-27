@@ -1,6 +1,6 @@
-# Interactive Story Generator (Choose Your Own Adventure)
+# Interactive Story Generator 
 
-An immersive, dynamic "Choose Your Own Adventure" web application that uses artificial intelligence to generate unique, branching stories based on user-defined themes. The project is split into a **React (Vite) frontend** and a **FastAPI backend** that connects to LLMs (using LangChain & Groq) to dynamically build and save interactive story trees.
+An immersive, dynamic "Interactive Story Generator" web application that uses artificial intelligence to generate unique, branching stories based on user-defined themes. The project is split into a **React (Vite) frontend** and a **FastAPI backend** that connects to LLMs (using LangChain & Groq) to dynamically build and save interactive story trees.
 
 ---
 
