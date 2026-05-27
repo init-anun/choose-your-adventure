@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from core.config import settings
 
 # from langchain_openai import ChatOpenAI
-# from langchain_google_genai import ChatGoogleGenerativeAI as ChatGemini
-from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI as ChatGemini
+# from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 
@@ -19,19 +19,19 @@ load_dotenv()
 class StoryGenerator:
     @classmethod
     
-    # def _get_llm(cls):
-    #     return ChatGemini(
-    #         model="gemini-2.5-flash",
-    #         google_api_key=settings.GEMINI_API_KEY
-    #     )
-
-
     def _get_llm(cls):
-        return ChatGroq(
-            model="llama-3.1-8b-instant",
-            groq_api_key=settings.GROQ_API_KEY,
-            max_tokens=4000
+        return ChatGemini(
+            model="gemini-2.5-flash",
+            google_api_key=settings.GEMINI_API_KEY
         )
+
+
+    # def _get_llm(cls):
+    #     return ChatGroq(
+    #         model="llama-3.1-8b-instant",
+    #         groq_api_key=settings.GROQ_API_KEY,
+    #         max_tokens=4000
+    #     )
     
     @classmethod
     def generate_story(cls, db: Session, session_id: str, theme: str = "fantasy") -> Story:
